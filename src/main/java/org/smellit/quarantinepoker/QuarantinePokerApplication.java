@@ -11,10 +11,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class QuarantinePokerApplication implements CommandLineRunner {
 
     private TestService testService;
+    private CsvParseService csvParseService;
 
     @Autowired
-    public QuarantinePokerApplication(TestService testService) {
+    public QuarantinePokerApplication(TestService testService, CsvParseService csvParseService) {
         this.testService = testService;
+        this.csvParseService = csvParseService;
     }
 
     public static void main(String[] args) {
@@ -23,8 +25,11 @@ public class QuarantinePokerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        testService.add();
-        testService.print();
+       // testService.add();
+       // testService.print();
+
+        csvParseService.parse();
+
 
     }
 }
