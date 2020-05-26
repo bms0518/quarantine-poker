@@ -89,7 +89,7 @@ public class PlayerStatsService {
 
         allPlayerStats.sort(Comparator.comparing(PlayerGameStats::getGameId));
 
-        int max = Math.max(0, allPlayerStats.size() - 1);
+        int max = Math.max(0, allPlayerStats.size());
         int min = Math.max(0, max - numRecentGames);
 
         List<PlayerGameStats> playerStatsSubList = allPlayerStats.subList(min, max);
