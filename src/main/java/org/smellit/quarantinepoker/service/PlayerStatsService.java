@@ -3,7 +3,6 @@ package org.smellit.quarantinepoker.service;
 import org.smellit.quarantinepoker.model.Player;
 import org.smellit.quarantinepoker.model.PlayerGameStats;
 import org.smellit.quarantinepoker.model.PlayerStats;
-import org.smellit.quarantinepoker.repo.GameRepository;
 import org.smellit.quarantinepoker.repo.PlayerGameStatsRepository;
 import org.smellit.quarantinepoker.repo.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

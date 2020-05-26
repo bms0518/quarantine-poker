@@ -61,11 +61,10 @@ public class CsvParseService {
                     playerGameStats.setTotalProfit(new BigDecimal(totalProfit));
                     playerGameStats.setBuyIn(new BigDecimal(buyin));
                     playerGameStatsList.add(playerGameStats);
+                    statsIndex++;
                 }
 
                 playerIndex++;
-                statsIndex++;
-
             }
             gamesList.add(game);
             gameIndex++;
