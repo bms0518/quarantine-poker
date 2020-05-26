@@ -15,4 +15,5 @@ public interface PlayerGameStatsRepository extends JpaRepository<PlayerGameStats
 
     @Query("SELECT pgs FROM PlayerGameStats pgs WHERE pgs.playerId = ?1")
     List<PlayerGameStats> findAllByPlayerId(int playerId);
+
 }
