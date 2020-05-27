@@ -31,24 +31,31 @@ public class QuarantinePokerApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(rankingsService.rankAndPrint("Total Profit", PlayerStats::getTotalProfit, 5));
-        sb.append("\n<br>\n");
-        sb.append(rankingsService.rankAndPrint("Biggest Win", PlayerStats::getBiggestWin, 5));
-        sb.append("\n<br>\n");
-        sb.append(rankingsService.rankAndPrint("Worst Loss", PlayerStats::getWorstLoss, 5));
-        sb.append("\n<br>\n");
-        sb.append(rankingsService.rankAndPrint("Average Profit", PlayerStats::getAverageProfit, 5));
-        sb.append("\n<br>\n");
-        sb.append(rankingsService.rankAndPrint("Total Games", PlayerStats::getTotalGames));
-        sb.append("\n<br>\n");
-        sb.append(rankingsService.rankAndPrint("Number Wins", PlayerStats::getNumberWins, 5));
-        sb.append("\n<br>\n");
-        sb.append(rankingsService.rankAndPrint("Number Losses", PlayerStats::getNumberLosses, 5));
-        sb.append("\n<br>\n");
-        sb.append(rankingsService.rankAndPrint("Last 3 Games Profit", PlayerStats::getLast3TotalProfit, 5));
-        sb.append("\n<br>\n");
-        sb.append(rankingsService.rankAndPrint("Last 5 Games Profit", PlayerStats::getLast5TotalProfit, 5));
+        final int minGames = 5;
+
+        sb.append(titleWrap("Total Profit (min 5 games)", rankingsService.rankAndPrint("Total Profit", PlayerStats::getTotalProfit, minGames)));
+        sb.append(titleWrap("Biggest Win (min 5 games)", rankingsService.rankAndPrint("Biggest Win", PlayerStats::getBiggestWin, minGames)));
+
+        sb.append(titleWrap("Worst Loss (min 5 games)", rankingsService.rankAndPrint("Worst Loss", PlayerStats::getWorstLoss, minGames)));
+        sb.append(titleWrap("Average Profit (min 5 games)", rankingsService.rankAndPrint("Average Profit", PlayerStats::getAverageProfit, minGames)));
+        sb.append(titleWrap("Total Games Played", rankingsService.rankAndPrint("Total Games", PlayerStats::getTotalGames, minGames)));
+
+        sb.append(titleWrap("&#128293 3 Game Hot List &#128293 (min 3 games)", rankingsService.rankAndPrint("Last 3 Games Profit", PlayerStats::getLast3TotalProfit, 3)));
+        sb.append(titleWrap("&#128293 5 Game Hot List &#128293 (min 5 games)", rankingsService.rankAndPrint("Last 5 Games Profit", PlayerStats::getLast5TotalProfit, minGames)));
 
         System.err.println(sb.toString());
     }
+
+    private String titleWrap(String title, String tableHtml) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div>");
+        sb.append("<h1>");
+        sb.append(title);
+        sb.append("</h1>");
+        sb.append(tableHtml);
+        sb.append("</div>");
+        sb.append("\n\n");
+        return sb.toString();
+    }
+
 }

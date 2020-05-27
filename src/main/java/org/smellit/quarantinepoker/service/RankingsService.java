@@ -1,12 +1,14 @@
 package org.smellit.quarantinepoker.service;
 
-import org.smellit.quarantinepoker.model.Player;
 import org.smellit.quarantinepoker.model.PlayerStats;
 import org.smellit.quarantinepoker.repo.PlayerRepository;
 import org.smellit.quarantinepoker.util.HtmlTableBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -44,14 +46,29 @@ public class RankingsService {
 
     private String toHtml(String title, List<PlayerStats> playerStatsList, Function<? super PlayerStats, ? extends Comparable> keyExtractor) {
 
-        HtmlTableBuilder htmlTableBuilder = new HtmlTableBuilder(true, 3);
-        htmlTableBuilder.addTableHeader("Ranking", "Name", title);
+        List<String> headers = new ArrayList<>();
+        headers.add("#");
+        headers.add("Name");
+        headers.add(title);
 
-        int i = 1;
+        List<List<String>> rows = new ArrayList<>();
         for (PlayerStats playerStats : playerStatsList) {
-            htmlTableBuilder.addRowValues(String.valueOf(i), playerStats.getPlayerName(), keyExtractor.apply(playerStats).toString());
-            i++;
+            List<String> row = new ArrayList<>();
+            row.add(playerStats.getPlayerName());
+
+            Object key = keyExtractor.apply(playerStats);
+            if (key instanceof BigDecimal) {
+                BigDecimal bigDecimal = (BigDecimal) key;
+                NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+                String formatted = numberFormat.format(bigDecimal.doubleValue());
+                key = formatted;
+            }
+
+            row.add(key.toString());
+            rows.add(row);
         }
+
+        HtmlTableBuilder htmlTableBuilder = new HtmlTableBuilder(3, headers, rows);
         return htmlTableBuilder.build();
     }
 
