@@ -43,17 +43,21 @@ public class QuarantinePokerApplication implements CommandLineRunner {
         sb.append(titleWrap("&#128293 3 Game Hot List &#128293 (min 3 games)", rankingsService.rankAndPrint("Last 3 Games Profit", PlayerStats::getLast3TotalProfit, 3)));
         sb.append(titleWrap("&#128293 5 Game Hot List &#128293 (min 5 games)", rankingsService.rankAndPrint("Last 5 Games Profit", PlayerStats::getLast5TotalProfit, minGames)));
 
+        sb.append(titleWrap("Win/Loss (min 3 games)", rankingsService.getWinLossChart(3)));
+
         System.err.println(sb.toString());
     }
 
     private String titleWrap(String title, String tableHtml) {
         StringBuilder sb = new StringBuilder();
         sb.append("<div>");
-        sb.append("<h1>");
+        sb.append("<h3>");
         sb.append(title);
-        sb.append("</h1>");
+        sb.append("</h3>");
         sb.append(tableHtml);
         sb.append("</div>");
+        sb.append("<br>");
+        sb.append("<hr>");
         sb.append("\n\n");
         return sb.toString();
     }

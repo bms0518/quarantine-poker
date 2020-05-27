@@ -31,17 +31,47 @@ public class RankingsService {
         return rankAndPrint(title, keyExtractor, 0);
     }
 
-    public String rankAndPrint(String title, Function<? super PlayerStats, ? extends Comparable> keyExtractor, int minNumGames) {
+
+    public String rankAndPrint(String title, Function<? super PlayerStats, ? extends Comparable> keyExtractor, int minGames) {
         List<PlayerStats> playerStatsList = getAllPlayerStats().stream()
-                .filter(playerStats -> playerStats.getTotalGames() >= minNumGames)
+                .filter(playerStats -> playerStats.getTotalGames() >= minGames)
                 .collect(Collectors.toList());
 
         playerStatsList.sort(Comparator.comparing(keyExtractor));
         Collections.reverse(playerStatsList);
 
-        toConsole(title, playerStatsList, keyExtractor);
-
         return toHtml(title, playerStatsList, keyExtractor);
+    }
+
+    public String getWinLossChart(int minGames) {
+        List<PlayerStats> playerStatsList = getAllPlayerStats().stream()
+                .filter(playerStats -> playerStats.getTotalGames() >= minGames)
+                .sorted(Comparator.comparing(PlayerStats::getWinPercentage))
+                .collect(Collectors.toList());
+
+        Collections.reverse(playerStatsList);
+
+        List<String> headers = new ArrayList<>();
+        headers.add("#");
+        headers.add("Name");
+        headers.add("Win Percentage");
+        headers.add("Wins");
+        headers.add("Losses");
+        headers.add("Total Games");
+
+        List<List<String>> rows = new ArrayList<>();
+        for (PlayerStats playerStats : playerStatsList) {
+            List<String> row = new ArrayList<>();
+            row.add(playerStats.getPlayerName());
+            row.add(playerStats.getWinPercentageFormatted());
+            row.add(String.valueOf(playerStats.getNumberWins()));
+            row.add(String.valueOf(playerStats.getNumberLosses()));
+            row.add(String.valueOf(playerStats.getTotalGames()));
+            rows.add(row);
+        }
+
+        HtmlTableBuilder htmlTableBuilder = new HtmlTableBuilder(6, headers, rows);
+        return htmlTableBuilder.build();
     }
 
     private String toHtml(String title, List<PlayerStats> playerStatsList, Function<? super PlayerStats, ? extends Comparable> keyExtractor) {
