@@ -29,15 +29,26 @@ public class QuarantinePokerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        rankingsService.rankAndPrint("Total Profit", PlayerStats::getTotalProfit, 5);
-        rankingsService.rankAndPrint("Biggest Win", PlayerStats::getBiggestWin, 5);
-        rankingsService.rankAndPrint("Worst Loss", PlayerStats::getWorstLoss, 5);
-        rankingsService.rankAndPrint("Average Profit", PlayerStats::getAverageProfit, 5);
-        rankingsService.rankAndPrint("Total Games", PlayerStats::getTotalGames);
+        StringBuilder sb = new StringBuilder();
 
-        rankingsService.rankAndPrint("Number Wins", PlayerStats::getNumberWins, 5);
-        rankingsService.rankAndPrint("Number Losses", PlayerStats::getNumberLosses, 5);
-        rankingsService.rankAndPrint("Last 3 Games Profit", PlayerStats::getLast3TotalProfit, 5);
-        rankingsService.rankAndPrint("Last 5 Games Profit", PlayerStats::getLast5TotalProfit, 5);
+        sb.append(rankingsService.rankAndPrint("Total Profit", PlayerStats::getTotalProfit, 5));
+        sb.append("\n<br>\n");
+        sb.append(rankingsService.rankAndPrint("Biggest Win", PlayerStats::getBiggestWin, 5));
+        sb.append("\n<br>\n");
+        sb.append(rankingsService.rankAndPrint("Worst Loss", PlayerStats::getWorstLoss, 5));
+        sb.append("\n<br>\n");
+        sb.append(rankingsService.rankAndPrint("Average Profit", PlayerStats::getAverageProfit, 5));
+        sb.append("\n<br>\n");
+        sb.append(rankingsService.rankAndPrint("Total Games", PlayerStats::getTotalGames));
+        sb.append("\n<br>\n");
+        sb.append(rankingsService.rankAndPrint("Number Wins", PlayerStats::getNumberWins, 5));
+        sb.append("\n<br>\n");
+        sb.append(rankingsService.rankAndPrint("Number Losses", PlayerStats::getNumberLosses, 5));
+        sb.append("\n<br>\n");
+        sb.append(rankingsService.rankAndPrint("Last 3 Games Profit", PlayerStats::getLast3TotalProfit, 5));
+        sb.append("\n<br>\n");
+        sb.append(rankingsService.rankAndPrint("Last 5 Games Profit", PlayerStats::getLast5TotalProfit, 5));
+
+        System.err.println(sb.toString());
     }
 }

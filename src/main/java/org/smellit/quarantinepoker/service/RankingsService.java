@@ -3,6 +3,7 @@ package org.smellit.quarantinepoker.service;
 import org.smellit.quarantinepoker.model.Player;
 import org.smellit.quarantinepoker.model.PlayerStats;
 import org.smellit.quarantinepoker.repo.PlayerRepository;
+import org.smellit.quarantinepoker.util.HtmlTableBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +25,37 @@ public class RankingsService {
         this.playerRepository = playerRepository;
     }
 
-    public void rankAndPrint(String title, Function<? super PlayerStats, ? extends Comparable> keyExtractor) {
-        rankAndPrint(title, keyExtractor, 0);
+    public String rankAndPrint(String title, Function<? super PlayerStats, ? extends Comparable> keyExtractor) {
+        return rankAndPrint(title, keyExtractor, 0);
     }
 
-    public void rankAndPrint(String title, Function<? super PlayerStats, ? extends Comparable> keyExtractor, int minNumGames) {
+    public String rankAndPrint(String title, Function<? super PlayerStats, ? extends Comparable> keyExtractor, int minNumGames) {
         List<PlayerStats> playerStatsList = getAllPlayerStats().stream()
                 .filter(playerStats -> playerStats.getTotalGames() >= minNumGames)
                 .collect(Collectors.toList());
-        
+
         playerStatsList.sort(Comparator.comparing(keyExtractor));
         Collections.reverse(playerStatsList);
+
+        toConsole(title, playerStatsList, keyExtractor);
+
+        return toHtml(title, playerStatsList, keyExtractor);
+    }
+
+    private String toHtml(String title, List<PlayerStats> playerStatsList, Function<? super PlayerStats, ? extends Comparable> keyExtractor) {
+
+        HtmlTableBuilder htmlTableBuilder = new HtmlTableBuilder(true, 3);
+        htmlTableBuilder.addTableHeader("Ranking", "Name", title);
+
+        int i = 1;
+        for (PlayerStats playerStats : playerStatsList) {
+            htmlTableBuilder.addRowValues(String.valueOf(i), playerStats.getPlayerName(), keyExtractor.apply(playerStats).toString());
+            i++;
+        }
+        return htmlTableBuilder.build();
+    }
+
+    private String toConsole(String title, List<PlayerStats> playerStatsList, Function<? super PlayerStats, ? extends Comparable> keyExtractor) {
 
         int i = 1;
         StringBuilder sb = new StringBuilder();
@@ -51,7 +72,7 @@ public class RankingsService {
             i++;
         }
         sb.append("\n");
-        System.err.println(sb.toString());
+        return sb.toString();
     }
 
     private List<PlayerStats> getAllPlayerStats() {
