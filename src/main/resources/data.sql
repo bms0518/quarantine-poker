@@ -22,6 +22,8 @@ INSERT INTO player (id,name) VALUES (19,'DanoTheMano');
 INSERT INTO player (id,name) VALUES (20,'Amro');
 INSERT INTO player (id,name) VALUES (21,'Grayson');
 INSERT INTO player (id,name) VALUES (22,'Wendell');
+INSERT INTO player (id,name) VALUES (23,'Chris P');
+
 
 INSERT INTO game (id,date) VALUES (0,'2020-03-30');
 
@@ -469,3 +471,31 @@ INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VAL
 INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (292,8,38,150.00,-5.02);
 INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (293,11,38,120.00,-63.60);
 INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (294,5,38,100.00,-100.00);
+
+INSERT INTO game (id,date) VALUES (39,'2020-05-27');
+
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (295,21,39,75.00,276.65);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (296,23,39,75.00,249.45);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (297,9,39,75.00,146.83);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (298,1,39,75.00,-75.00);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (299,7,39,150.00,-150.00);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (300,20,39,565.00,-447.93);
+
+INSERT INTO game (id,date) VALUES (40,'2020-05-27');
+
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (301,9,40,75.00,150.00);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (302,21,40,75.00,-75.00);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (303,20,40,75.00,-75.00);
+
+INSERT INTO game (id,date) VALUES (41,'2020-05-28');
+
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (304,22,41,100.00,222.39);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (305,9,41,100.00,171.41);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (306,8,41,150.00,58.40);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (307,2,41,150.00,18.08);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (308,21,41,100.00,9.38);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (309,20,41,263.00,8.53);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (310,3,41,100.00,-36.99);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (311,1,41,100.00,-100.00);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (312,18,41,100.00,-100.00);
+INSERT INTO player_game_stats (id, player_id, game_id, buy_in, total_profit) VALUES (313,4,41,300.00,-251.20);
